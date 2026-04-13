@@ -1,0 +1,67 @@
+{
+  "description": "マッピング定義: PDFテンプレートへの書き込み位置を指定する",
+  "mappings": [
+    {
+      "field_key": "full_name",
+      "method": "coordinate",
+      "page": 0,
+      "x": 150,
+      "y": 200,
+      "font_size": 12
+    },
+    {
+      "field_key": "postal_code",
+      "method": "coordinate",
+      "page": 0,
+      "x": 150,
+      "y": 240,
+      "font_size": 10
+    },
+    {
+      "field_key": "address_pref",
+      "method": "coordinate",
+      "page": 0,
+      "x": 150,
+      "y": 270,
+      "font_size": 10
+    },
+    {
+      "field_key": "address_city",
+      "method": "coordinate",
+      "page": 0,
+      "x": 150,
+      "y": 300,
+      "font_size": 10
+    },
+    {
+      "field_key": "address_detail",
+      "method": "coordinate",
+      "page": 0,
+      "x": 150,
+      "y": 330,
+      "font_size": 10
+    },
+    {
+      "field_key": "phone",
+      "method": "coordinate",
+      "page": 0,
+      "x": 150,
+      "y": 370,
+      "font_size": 10
+    },
+    {
+      "field_key": "email",
+      "method": "coordinate",
+      "page": 0,
+      "x": 150,
+      "y": 400,
+      "font_size": 10
+    },
+    {
+      "field_key": "full_name",
+      "method": "form_field",
+      "field_name": "name_field",
+      "font_size": 12
+    }
+  ]
+}

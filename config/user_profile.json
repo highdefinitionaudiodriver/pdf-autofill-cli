@@ -1,0 +1,12 @@
+{
+  "last_name": "山田",
+  "first_name": "太郎",
+  "full_name": "山田 太郎",
+  "postal_code": "100-0001",
+  "address_pref": "東京都",
+  "address_city": "千代田区千代田",
+  "address_detail": "1-1-1 サンプルマンション101",
+  "phone": "090-1234-5678",
+  "email": "taro.yamada@example.com",
+  "birthdate": "1990-01-15"
+}
