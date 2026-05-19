@@ -1,0 +1,155 @@
+{
+  "_meta": {
+    "form_name": "医療費控除の明細書（内訳書）",
+    "issuer": "国税庁",
+    "based_on_form_version": "令和6年分（2024年提出分基準）",
+    "warning": "PDF の年次改訂で座標がずれる場合があります。±5〜10pt 範囲で微調整してください。",
+    "coordinate_system": "PDF 原点 (0,0) は左下、Y は上方向に増加（pdf-autofill-cli の標準）",
+    "page_size_pt": [595.28, 841.89],
+    "_calibration_tips": [
+      "1) 試し刷り後に正解との差分を測る",
+      "2) 1行目で X/Y を確定 → 2行目以降は y_step だけ調整",
+      "3) フォントサイズが大きい場合はベースラインずれに注意"
+    ]
+  },
+  "description": "医療費控除明細書のマッピング定義。国税庁の様式に合わせた座標を提供します。",
+  "mappings": [
+    {
+      "_comment": "申告者氏名（上部）",
+      "field_key": "full_name",
+      "method": "coordinate",
+      "page": 0,
+      "x": 200,
+      "y": 770,
+      "font_size": 12
+    },
+    {
+      "_comment": "年度（令和X年分）",
+      "field_key": "year",
+      "method": "coordinate",
+      "page": 0,
+      "x": 460,
+      "y": 770,
+      "font_size": 10
+    },
+    {
+      "_comment": "住所",
+      "field_key": "address",
+      "method": "coordinate",
+      "page": 0,
+      "x": 200,
+      "y": 750,
+      "font_size": 10
+    },
+
+    {
+      "_comment": "医療費の内訳 1行目 - 医療を受けた方の氏名",
+      "field_key": "row1_person_name",
+      "method": "coordinate",
+      "page": 0,
+      "x": 80,
+      "y": 580,
+      "font_size": 9
+    },
+    {
+      "_comment": "医療費の内訳 1行目 - 病院・薬局等の名称",
+      "field_key": "row1_facility",
+      "method": "coordinate",
+      "page": 0,
+      "x": 180,
+      "y": 580,
+      "font_size": 9
+    },
+    {
+      "_comment": "医療費の内訳 1行目 - 医療費の区分（診療・治療 / 医薬品購入 / 介護保険 / その他）",
+      "field_key": "row1_medical_type",
+      "method": "coordinate",
+      "page": 0,
+      "x": 330,
+      "y": 580,
+      "font_size": 9
+    },
+    {
+      "_comment": "医療費の内訳 1行目 - 支払った医療費",
+      "field_key": "row1_paid_amount",
+      "method": "coordinate",
+      "page": 0,
+      "x": 420,
+      "y": 580,
+      "font_size": 9
+    },
+    {
+      "_comment": "医療費の内訳 1行目 - 補填される金額",
+      "field_key": "row1_reimbursed_amount",
+      "method": "coordinate",
+      "page": 0,
+      "x": 510,
+      "y": 580,
+      "font_size": 9
+    },
+
+    {
+      "_comment": "医療費の内訳 2行目 (y = 1行目 - 20)",
+      "field_key": "row2_person_name", "method": "coordinate", "page": 0, "x": 80, "y": 560, "font_size": 9
+    },
+    { "field_key": "row2_facility",          "method": "coordinate", "page": 0, "x": 180, "y": 560, "font_size": 9 },
+    { "field_key": "row2_medical_type",      "method": "coordinate", "page": 0, "x": 330, "y": 560, "font_size": 9 },
+    { "field_key": "row2_paid_amount",       "method": "coordinate", "page": 0, "x": 420, "y": 560, "font_size": 9 },
+    { "field_key": "row2_reimbursed_amount", "method": "coordinate", "page": 0, "x": 510, "y": 560, "font_size": 9 },
+
+    {
+      "_comment": "医療費の内訳 3行目",
+      "field_key": "row3_person_name", "method": "coordinate", "page": 0, "x": 80, "y": 540, "font_size": 9
+    },
+    { "field_key": "row3_facility",          "method": "coordinate", "page": 0, "x": 180, "y": 540, "font_size": 9 },
+    { "field_key": "row3_medical_type",      "method": "coordinate", "page": 0, "x": 330, "y": 540, "font_size": 9 },
+    { "field_key": "row3_paid_amount",       "method": "coordinate", "page": 0, "x": 420, "y": 540, "font_size": 9 },
+    { "field_key": "row3_reimbursed_amount", "method": "coordinate", "page": 0, "x": 510, "y": 540, "font_size": 9 },
+
+    {
+      "_comment": "医療費の内訳 4行目",
+      "field_key": "row4_person_name", "method": "coordinate", "page": 0, "x": 80, "y": 520, "font_size": 9
+    },
+    { "field_key": "row4_facility",          "method": "coordinate", "page": 0, "x": 180, "y": 520, "font_size": 9 },
+    { "field_key": "row4_medical_type",      "method": "coordinate", "page": 0, "x": 330, "y": 520, "font_size": 9 },
+    { "field_key": "row4_paid_amount",       "method": "coordinate", "page": 0, "x": 420, "y": 520, "font_size": 9 },
+    { "field_key": "row4_reimbursed_amount", "method": "coordinate", "page": 0, "x": 510, "y": 520, "font_size": 9 },
+
+    {
+      "_comment": "医療費の内訳 5行目",
+      "field_key": "row5_person_name", "method": "coordinate", "page": 0, "x": 80, "y": 500, "font_size": 9
+    },
+    { "field_key": "row5_facility",          "method": "coordinate", "page": 0, "x": 180, "y": 500, "font_size": 9 },
+    { "field_key": "row5_medical_type",      "method": "coordinate", "page": 0, "x": 330, "y": 500, "font_size": 9 },
+    { "field_key": "row5_paid_amount",       "method": "coordinate", "page": 0, "x": 420, "y": 500, "font_size": 9 },
+    { "field_key": "row5_reimbursed_amount", "method": "coordinate", "page": 0, "x": 510, "y": 500, "font_size": 9 },
+
+    {
+      "_comment": "合計 - 支払った医療費の合計",
+      "field_key": "medical_total",
+      "method": "coordinate",
+      "page": 0,
+      "x": 420,
+      "y": 350,
+      "font_size": 11
+    },
+    {
+      "_comment": "合計 - 補填される金額の合計",
+      "field_key": "reimbursed_total",
+      "method": "coordinate",
+      "page": 0,
+      "x": 510,
+      "y": 350,
+      "font_size": 11
+    },
+    {
+      "_comment": "自己負担額（医療費合計 − 補填金額）",
+      "field_key": "self_paid_total",
+      "method": "coordinate",
+      "page": 0,
+      "x": 510,
+      "y": 320,
+      "font_size": 11
+    }
+  ]
+}

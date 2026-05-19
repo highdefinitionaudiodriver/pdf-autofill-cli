@@ -1,0 +1,45 @@
+{
+  "_description": "医療費控除明細書 入力用プロフィール（サンプル）",
+  "_usage": "自分の情報に書き換えてから main.py に渡してください。金額は文字列でカンマ区切り可。",
+  "_max_rows_per_page": 5,
+  "_overflow_handling": "6 行目以降は追加用紙が必要です（現状未対応）",
+
+  "full_name": "山田 太郎",
+  "address": "東京都千代田区永田町1-1-1",
+  "year": "令和 6",
+
+  "_row1_comment": "実際の医療費 1 件目を記入",
+  "row1_person_name": "山田 太郎",
+  "row1_facility": "○○薬局",
+  "row1_medical_type": "医薬品購入",
+  "row1_paid_amount": "12,800",
+  "row1_reimbursed_amount": "0",
+
+  "row2_person_name": "山田 花子",
+  "row2_facility": "△△病院",
+  "row2_medical_type": "診療・治療",
+  "row2_paid_amount": "45,200",
+  "row2_reimbursed_amount": "10,000",
+
+  "row3_person_name": "山田 太郎",
+  "row3_facility": "□□クリニック",
+  "row3_medical_type": "診療・治療",
+  "row3_paid_amount": "28,500",
+  "row3_reimbursed_amount": "0",
+
+  "row4_person_name": "",
+  "row4_facility": "",
+  "row4_medical_type": "",
+  "row4_paid_amount": "",
+  "row4_reimbursed_amount": "",
+
+  "row5_person_name": "",
+  "row5_facility": "",
+  "row5_medical_type": "",
+  "row5_paid_amount": "",
+  "row5_reimbursed_amount": "",
+
+  "medical_total": "86,500",
+  "reimbursed_total": "10,000",
+  "self_paid_total": "76,500"
+}
