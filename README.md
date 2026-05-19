@@ -174,6 +174,28 @@ MIT
 
 ---
 
+## 🔗 確定申告セット（兄弟ツール）
+
+本ツールは **3 兄弟ツール + ランチャー** の一部です。組み合わせで確定申告が一気通貫に：
+
+```
+[1] receipt-ocr-tool  ← レシート画像 → CSV
+        ↓
+[2] selfmed-tax-tool  ← 購入履歴 CSV → 対象医薬品 Excel
+        ↓
+[3] pdf-autofill-cli  ← このリポジトリ。明細書 PDF 自動入力
+        ↓
+   税務署提出用 PDF 完成
+```
+
+- 🚀 **[tax-toolkit](https://github.com/highdefinitionaudiodriver/tax-toolkit)** — 上の 3 ステップを **1 つの GUI** で一気通貫実行（Tkinter ウィザード）
+- 📷 [receipt-ocr-tool](https://github.com/highdefinitionaudiodriver/receipt-ocr-tool) — レシート画像 OCR（Tesseract / PaddleOCR 切替対応）
+- 💊 [selfmed-tax-tool](https://github.com/highdefinitionaudiodriver/selfmed-tax-tool) — 通販購入履歴 CSV → セルフメディケーション税制対象品の Excel 出力
+
+医療費控除明細書テンプレートは [`templates/iryouhi_meisai/`](templates/iryouhi_meisai/) に同梱しています（国税庁公式 PDF はライセンスの関係で別途ダウンロード）。
+
+---
+
 ## 🤝 商用利用・カスタマイズ依頼
 
 - 個人利用は無料（MIT ライセンス）
