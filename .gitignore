@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+env/
+.env
+.idea/
+.vscode/
+*.egg-info/
+build/
+dist/
+releases/
+
+# Runtime output
+output/
+*.log
+
+# Local personal data
+config/user_profile.local.json
+*.local.pdf
