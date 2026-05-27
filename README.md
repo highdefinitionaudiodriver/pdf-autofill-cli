@@ -55,6 +55,14 @@ pdf-autofill-cli/
 pip install -r requirements.txt
 ```
 
+### セットアップ診断
+
+PDF生成前に PyMuPDF、主要ファイル、サンプルJSON、医療費控除テンプレート用JSON、日本語フォント候補を確認できます。
+
+```bash
+python tools/check_setup.py
+```
+
 ## 使い方
 
 ### サンプルテンプレートの生成
@@ -213,11 +221,11 @@ MIT
 ## 現状サマリ (2026-05-25)
 
 - 対象: PDF Auto-Fill CLI
-- 作業ブランチ: feat/sellable-v1
-- README更新時点の参照コミット: 2b3add0 chore: remove tracked filled.pdf from index, use gitignore
+- 作業ブランチ: main
+- README更新時点の参照コミット: 2026-05-27 Codex作業時点
 - Python 実行環境向けに requirements.txt を同梱。
 - docs ディレクトリ配下に設計・運用・補足資料を配置。
-- 主要な確認コマンド: python -m pytest または README 記載の Python コマンド
-- 次に進めるなら、README 内の利用手順と既存 docs / tests を起点に、未整備の検証手順・引き継ぎメモ・CI 化を補強する。
+- 主要な確認コマンド: `python tools/check_setup.py` / `python -m unittest discover -s tests`
+- 次に進めるなら、実PDF生成のスモークテスト、座標プレビュー補助、医療費控除テンプレートの年次更新手順を整備する。
 <!-- CODEX-CURRENT-STATUS:END -->
 
