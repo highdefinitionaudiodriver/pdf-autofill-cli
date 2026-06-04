@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- 入力処理 `main.fill_pdf` の統合テスト `tests/test_fill_pdf.py`（9ケース）。実際に PyMuPDF でテンプレート生成→流し込み→出力 PDF のテキスト抽出で検証。座標書き込み、プロフィールキー欠落/ページ範囲外/未知メソッドのスキップ、フォームフィールド書き込み（存在/不在）、`load_json` のエラー終了（ファイル無し/不正 JSON）をカバー
 - README に「これは何？（30秒で）」「想定ユースケース・価格帯」セクションを追加
 - SECURITY.md を追加（脆弱性報告フロー）
 - 商用利用・カスタマイズ依頼の連絡先を README 末尾に明記
