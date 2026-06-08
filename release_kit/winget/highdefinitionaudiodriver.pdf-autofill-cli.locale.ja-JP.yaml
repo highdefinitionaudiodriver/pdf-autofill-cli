@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.6.0.schema.json
+PackageIdentifier: highdefinitionaudiodriver.pdf-autofill-cli
+PackageVersion: 0.2.0
+PackageLocale: ja-JP
+Publisher: highdefinitionaudiodriver
+PublisherUrl: https://github.com/highdefinitionaudiodriver
+PackageName: PDF 自動入力 CLI
+PackageUrl: https://github.com/highdefinitionaudiodriver/pdf-autofill-cli
+License: MIT
+ShortDescription: コマンドラインからPDFにユーザー情報を自動入力するツール。 あらかじめ定義したプロフィール(JSON)とマッピング設定に従い、PDFテンプレートの指定座標またはフォームフィールドにテキストを描画して新しいPDFとして出力します。
+Moniker: pdf-autofill-cli
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0

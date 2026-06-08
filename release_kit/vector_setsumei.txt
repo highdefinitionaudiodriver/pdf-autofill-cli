@@ -1,0 +1,288 @@
+﻿========================================================================
+  PDF 自動入力 CLI  Version 0.2.0
+========================================================================
+
+  ソフト名     : PDF 自動入力 CLI
+  バージョン   : 0.2.0
+  作 者        : highdefinitionaudiodriver
+  動作環境     : Windows 10/11, macOS 12+, Linux / Python 3.10 以上
+  ライセンス   : MIT License（フリーソフト／オープンソース）
+  種 別        : フリーソフト
+  作成日       : 2026-06-08
+
+------------------------------------------------------------------------
+■ ソフトの説明 / 使用方法（README より）
+------------------------------------------------------------------------
+
+PDF Auto-Fill CLI
+
+コマンドラインからPDFにユーザー情報を自動入力するツール。  
+あらかじめ定義したプロフィール(JSON)とマッピング設定に従い、PDFテンプレートの指定座標またはフォームフィールドにテキストを描画して新しいPDFとして出力します。
+
+---
+
+🎯 これは何？（30秒で）
+
+- 誰のため：確定申告書・各種申請書・契約書などの 同じ情報を何枚もの PDF に書き写している個人／士業
+- 何が解決される：氏名・住所・マイナンバー等のプロフィールを JSON に一度登録するだけで、対応 PDF へ座標指定 or AcroForm フィールド指定で自動描画。手書き・タイプの繰り返しを排除
+- なぜ既存ツールではダメか：Adobe Acrobat は高額、無料ツールはフォームフィールドのみ対応で 国税庁の固定座標 PDF に対応できない。本ツールは 座標指定描画で官公庁配布 PDF にも対応
+- 使う条件：Python 3.10+／日本語フォント（Windows は自動検出）／CLI または EXE
+
+💰 想定ユースケース・価格帯
+
+| 用途 | 形態 |
+|---|---|
+| 個人利用（自分の申請書類の自動入力） | 無料（MIT） |
+| 確定申告セット（Receipt OCR + Selfmed Tax との組合せ） | 個別利用は無料、束ねたパッケージ販売は今後検討 |
+| 士業向け（行政書士・税理士の業務テンプレ整備） | 応相談 |
+
+---
+
+🎬 デモ
+
+<!-- docs/demo.gif に「プロフィールJSON → PDFテンプレート選択 → 入力済みPDF生成」までの30秒デモGIFを配置してください。 -->
+
+---
+
+特徴
+
+- 座標指定描画 — ページ番号・(x, y)座標を指定してテキストを直接描画
+- フォームフィールド対応 — AcroFormフィールド名を指定して値をセット
+- 日本語対応 — Windows環境のMSゴシック/メイリオ/游ゴシックを自動検出
+- PyInstaller対応 — 単一EXEとしてパッケージング可能な設計
+
+プロジェクト構成
+
+
+pdf-autofill-cli/
+├── main.py                     # メインスクリプト
+├── requirements.txt
+├── config/
+│   ├── user_profile.json       # ユーザー個人情報
+│   └── mapping_config.json     # 座標/フィールドのマッピング定義
+├── templates/                  # テンプレートPDF置き場
+└── output/                     # 出力先
+
+
+セットアップ
+
+
+pip install -r requirements.txt
+
+
+セットアップ診断
+
+PDF生成前に PyMuPDF、主要ファイル、サンプルJSON、医療費控除テンプレート用JSON、日本語フォント候補を確認できます。
+
+
+python tools/check_setup.py
+
+
+使い方
+
+サンプルテンプレートの生成
+
+テスト用のA4サイズPDFテンプレートを生成します。
+
+
+python main.py --generate-template
+
+
+templates/sample_template.pdf が作成されます。
+
+PDF自動入力の実行
+
+
+python main.py templates/sample_template.pdf
+
+
+オプション
+
+| オプション | デフォルト値 | 説明 |
+|---|---|---|
+| -p, --profile | config/user_profile.json | ユーザープロフィールJSONのパス |
+| -m, --mapping | config/mapping_config.json | マッピング定義JSONのパス |
+| -o, --output | output/filled.pdf | 出力先PDFのパス |
+| --generate-template | — | テスト用サンプルPDFを生成 |
+
+
+フルオプション指定の例
+python main.py input.pdf -p my_profile.json -m my_mapping.json -o result.pdf
+
+
+設定ファイル
+
+user_profile.json
+
+ユーザーの個人情報を定義します。キー名は自由に追加できます。
+
+
+{
+  "last_name": "山田",
+  "first_name": "太郎",
+  "full_name": "山田 太郎",
+  "postal_code": "100-0001",
+  "address_pref": "東京都",
+  "address_city": "千代田区千代田",
+  "address_detail": "1-1-1 サンプルマンション101",
+  "phone": "090-1234-5678",
+  "email": "taro.yamada@example.com",
+  "birthdate": "1990-01-15"
+}
+
+
+mapping_config.json
+
+「どのプロフィール項目を」「PDFのどこに」書き込むかを定義します。
+
+座標指定 (coordinate)
+
+
+{
+  "field_key": "full_name",
+  "method": "coordinate",
+  "page": 0,
+  "x": 150,
+  "y": 200,
+  "font_size": 12
+}
+
+
+| プロパティ | 説明 |
+|---|---|
+| field_key | user_profile.json のキー名 |
+| method | "coordinate" |
+| page | ページ番号 (0始まり) |
+| x, y | 描画座標 (ポイント単位、左上原点) |
+| font_size | フォントサイズ |
+
+フォームフィールド (form_field)
+
+
+{
+  "field_key": "full_name",
+  "method": "form_field",
+  "field_name": "name_field",
+  "font_size": 12
+}
+
+
+| プロパティ | 説明 |
+|---|---|
+| field_key | user_profile.json のキー名 |
+| method | "form_field" |
+| field_name | PDF内のAcroFormフィールド名 |
+
+EXE化 (PyInstaller)
+
+
+pip install pyinstaller
+pyinstaller --onefile --name pdf-autofill main.py
+
+
+dist/pdf-autofill.exe が生成されます。  
+config/ フォルダをEXEと同じディレクトリに配置して使用してください。
+
+座標の調べ方
+
+テンプレートPDFの書き込み座標を調べるには、以下の方法があります。
+
+1. Adobe Acrobat — カーソル位置の座標を画面下部に表示（単位をポイントに設定）
+2. PDF Viewer のルーラー機能 — 各種ビューアのルーラー/グリッド表示
+3. 試行調整 — mapping_config.json の座標を少しずつ変えて出力を確認
+
+> PyMuPDFの座標系はページ左上が原点 (0, 0)、右下に向かって値が増加します。単位はポイント (1pt = 1/72 inch) です。A4サイズは 595 x 842 pt です。
+
+技術スタック
+
+- Python 3.10+
+- [PyMuPDF (fitz)](https://pymupdf.readthedocs.io/) — PDF読み書き・テキスト描画
+
+ライセンス
+
+MIT
+
+---
+
+🔗 確定申告セット（兄弟ツール）
+
+本ツールは 3 兄弟ツール + ランチャー の一部です。組み合わせで確定申告が一気通貫に：
+
+
+[1] receipt-ocr-tool  ← レシート画像 → CSV
+        ↓
+[2] selfmed-tax-tool  ← 購入履歴 CSV → 対象医薬品 Excel
+        ↓
+[3] pdf-autofill-cli  ← このリポジトリ。明細書 PDF 自動入力
+        ↓
+   税務署提出用 PDF 完成
+
+
+- 🚀 [tax-toolkit](https://github.com/highdefinitionaudiodriver/tax-toolkit) — 上の 3 ステップを 1 つの GUI で一気通貫実行（Tkinter ウィザード）
+- 📷 [receipt-ocr-tool](https://github.com/highdefinitionaudiodriver/receipt-ocr-tool) — レシート画像 OCR（Tesseract / PaddleOCR 切替対応）
+- 💊 [selfmed-tax-tool](https://github.com/highdefinitionaudiodriver/selfmed-tax-tool) — 通販購入履歴 CSV → セルフメディケーション税制対象品の Excel 出力
+
+医療費控除明細書テンプレートは [templates/iryouhi_meisai/](templates/iryouhi_meisai/) に同梱しています（国税庁公式 PDF はライセンスの関係で別途ダウンロード）。
+
+---
+
+🤝 商用利用・カスタマイズ依頼
+
+- 個人利用は無料（MIT ライセンス）
+- 法人導入支援、カスタマイズ、業務テンプレ整備、追加機能開発は応相談
+- 連絡先：highdefinitionaudiodriver@gmail.com
+
+<!-- CODEX-CURRENT-STATUS:START -->
+現状サマリ (2026-05-25)
+
+- 対象: PDF Auto-Fill CLI
+- 作業ブランチ: main
+- README更新時点の参照コミット: 2026-05-27 Codex作業時点
+- Python 実行環境向けに requirements.txt を同梱。
+- docs ディレクトリ配下に設計・運用・補足資料を配置。
+- 主要な確認コマンド: python tools/check_setup.py / python -m unittest discover -s tests
+- 次に進めるなら、実PDF生成のスモークテスト、座標プレビュー補助、医療費控除テンプレートの年次更新手順を整備する。
+<!-- CODEX-CURRENT-STATUS:END -->
+
+------------------------------------------------------------------------
+■ 動作環境
+------------------------------------------------------------------------
+  Windows 10/11, macOS 12+, Linux / Python 3.10 以上
+  ※ オンライン専用ソフトではありません（ローカル環境で動作します）。
+
+------------------------------------------------------------------------
+■ インストール / アンインストール
+------------------------------------------------------------------------
+  ・本アーカイブを任意のフォルダに展開してください。
+  ・詳細な起動手順は上記「ソフトの説明」および同梱の README を参照してください。
+  ・アンインストールは展開したフォルダを削除するだけです（レジストリ不使用）。
+
+------------------------------------------------------------------------
+■ 転載・再配布について
+------------------------------------------------------------------------
+  本ソフトは MIT License のオープンソースです。同梱の LICENSE 条文に
+  従う限り、自由に利用・改変・再配布できます。
+  なお Vector 以外の配布サイトへの無断転載はご遠慮ください。
+
+------------------------------------------------------------------------
+■ 免責事項
+------------------------------------------------------------------------
+  本ソフトの使用によって生じたいかなる損害についても、作者は一切の
+  責任を負いません。利用者ご自身の責任においてご使用ください。
+
+------------------------------------------------------------------------
+■ 著作権
+------------------------------------------------------------------------
+  Copyright (c) 2026 highdefinitionaudiodriver
+  本ソフトは MIT License の下で公開されています。
+
+------------------------------------------------------------------------
+■ 連絡先 / サポート
+------------------------------------------------------------------------
+  作 者        : highdefinitionaudiodriver
+  E-mail       : highdefinitionaudiodriver@gmail.com
+  GitHub       : https://github.com/highdefinitionaudiodriver/pdf-autofill-cli.git
+  不具合報告・ご要望は上記 E-mail もしくはリポジトリの Issues へ
+  お願いいたします。
+
+========================================================================
