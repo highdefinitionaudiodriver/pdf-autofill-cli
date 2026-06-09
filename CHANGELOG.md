@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-04
+
 ### Added
 - `--demo` オプション: 同梱サンプル（テンプレート＋プロフィール）で**指定なしに即実行**し、`demo_output/demo_filled.pdf` を生成（「叩けば即結果」）。デモ実行の統合テストを追加
 
