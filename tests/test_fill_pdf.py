@@ -122,3 +122,21 @@ def test_load_json_valid(tmp_path):
 def test_fill_pdf_missing_template_exits(tmp_path):
     with pytest.raises(SystemExit):
         main.fill_pdf(tmp_path / "nope.pdf", tmp_path / "o.pdf", {}, [])
+
+
+def test_demo_mode_produces_pdf(tmp_path):
+    """--demo（同梱サンプル即実行）で PDF が生成されること。"""
+    import subprocess
+
+    out = tmp_path / "demo.pdf"
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "main.py"), "--demo", "-o", str(out)],
+        cwd=str(ROOT),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    assert result.returncode == 0, result.stderr
+    assert out.is_file()
+    assert out.stat().st_size > 0

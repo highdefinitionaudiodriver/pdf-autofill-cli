@@ -65,6 +65,15 @@ python tools/check_setup.py
 
 ## 使い方
 
+### ★ まず動きを見たい人へ（即実行デモ）
+
+同梱サンプル（テンプレート＋プロフィール）で、指定なしに即PDFを生成します。
+
+```bash
+python main.py --demo
+#   → demo_output/demo_filled.pdf に入力済みPDFが出力されます
+```
+
 ### サンプルテンプレートの生成
 
 テスト用のA4サイズPDFテンプレートを生成します。
@@ -89,6 +98,7 @@ python main.py templates/sample_template.pdf
 | `-m`, `--mapping` | `config/mapping_config.json` | マッピング定義JSONのパス |
 | `-o`, `--output` | `output/filled.pdf` | 出力先PDFのパス |
 | `--generate-template` | — | テスト用サンプルPDFを生成 |
+| `--demo` | — | 同梱サンプルで即実行し `demo_output/` に出力 |
 
 ```bash
 # フルオプション指定の例

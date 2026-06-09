@@ -254,8 +254,15 @@ def main():
         action="store_true",
         help="テスト用のサンプルPDFテンプレートを生成する",
     )
+    parser.add_argument(
+        "--demo",
+        action="store_true",
+        help="同梱サンプル（テンプレート＋プロフィール）で即実行し demo_output/ に出力。指定不要",
+    )
 
     args = parser.parse_args()
+
+    base = Path(__file__).resolve().parent
 
     # サンプルテンプレート生成モード
     if args.generate_template:
@@ -263,9 +270,30 @@ def main():
         create_sample_template(template_out)
         return
 
+    # --demo: 同梱サンプルで即実行（叩けば即結果）
+    if args.demo:
+        demo_dir = base / "demo_output"
+        demo_dir.mkdir(exist_ok=True)
+        template = base / "templates" / "sample_template.pdf"
+        if not template.exists():
+            create_sample_template(template)
+        args.template = str(template)
+        if args.profile == "config/user_profile.json":
+            args.profile = str(base / "config" / "user_profile.json")
+        if args.mapping == "config/mapping_config.json":
+            args.mapping = str(base / "config" / "mapping_config.json")
+        if args.output == "output/filled.pdf":
+            args.output = str(demo_dir / "demo_filled.pdf")
+        print("=" * 60)
+        print("  デモモード: 同梱サンプルで即実行します")
+        print(f"  テンプレート : {args.template}")
+        print(f"  プロフィール : {args.profile}")
+        print(f"  出力         : {args.output}")
+        print("=" * 60)
+
     # 通常の入力モード: テンプレート必須
     if args.template is None:
-        parser.error("テンプレートPDFのパスを指定してください (または --generate-template でサンプルを生成)")
+        parser.error("テンプレートPDFのパスを指定してください (または --demo / --generate-template)")
 
     # 設定ファイルを読み込み
     profile = load_json(Path(args.profile))

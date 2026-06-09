@@ -20,3 +20,4 @@ output/
 # Local personal data
 config/user_profile.local.json
 *.local.pdf
+demo_output/
